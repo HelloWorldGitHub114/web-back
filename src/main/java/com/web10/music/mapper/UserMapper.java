@@ -1,14 +1,39 @@
 package com.web10.music.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.web10.music.entity.Permission;
+import com.web10.music.entity.Role;
 import com.web10.music.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
- * <p>
  * 用户表 Mapper 接口
- * </p>
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+
+    User findByUserName(String username);
+
+    /**
+     * 根据用户名获取所有角色
+     */
+    List<Role> findRolesByUserId(int userId);
+
+
+    /**
+     * 根据角色id查询权限集合
+     */
+    List<Permission> findPermsByRoleId(int id);
+
+
+    /**
+     * 根据用户id查找用户信息
+     */
+    User findUserById(int id);
+
+    List<User> findAllUsers();
+
+    int insertUserRole(int userId, int roleId);
 }

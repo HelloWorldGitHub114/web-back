@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,6 +25,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "User对象", description = "用户表")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User implements Serializable {
 
     //序列化版本号
@@ -37,6 +39,7 @@ public class User implements Serializable {
     private String username;
 
     @ApiModelProperty(value = "密码")
+    @JsonIgnore
     private String password;
 
     @ApiModelProperty(value = "昵称")
@@ -79,11 +82,13 @@ public class User implements Serializable {
     private LocalDateTime updateTime;
 
     @TableField(exist = false)
-    @ApiModelProperty(value = "定义角色集合")
+    //@ApiModelProperty(value = "定义角色集合")
     @JsonIgnore
     private List<Role> roles;
 
+    @ApiModelProperty(value = "定义角色集合")
     public List<String> getRolesString() {
+        if(roles == null) return null;
         List<String> rolesString = new ArrayList<>();
         for (Role role : roles) {
             rolesString.add(role.getName());
@@ -91,7 +96,9 @@ public class User implements Serializable {
         return rolesString;
     }
 
+    @ApiModelProperty(value = "定义权限集合")
     public List<String> getPermissionsString() {
+        if(roles == null) return null;
         List<String> permsString = new ArrayList<>();
         for (Role role : roles) {
             for (Permission permission : role.getPerms()) {
