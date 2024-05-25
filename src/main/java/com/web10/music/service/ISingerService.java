@@ -25,7 +25,8 @@ public interface ISingerService extends IService<Singer> {
      * @param singerId
      * @return
      */
-    Singer findBySingerId(int singerId);
+    Singer findBySingerId(String singerId);
+
 
     /**
      * 添加歌手

@@ -42,12 +42,13 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
      * @return
      */
     @Override
-    public Singer findBySingerId(int singerId) {
+    public Singer findBySingerId(String singerId) {
         QueryWrapper<Singer> queryWrapper = new QueryWrapper();
         queryWrapper.eq("singer_id", singerId);
         Singer singer = singerMapper.selectOne(queryWrapper);
         return singer;
     }
+
 
 
     /**
@@ -59,6 +60,7 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
     @Override
     public boolean addSinger(Singer singer) {
         return singerMapper.insert(singer) > 0;
+
     }
 
     /**

@@ -50,7 +50,7 @@ public class SingerController {
      */
     @ApiOperation("根据歌手id获得歌手信息")
     @GetMapping("{id}")
-    public Result findBySingerId(@PathVariable int id) {
+    public Result findBySingerId(@PathVariable String id) {
         Singer singer = singerService.findBySingerId(id);
         return Result.ok(singer);
     }
@@ -63,9 +63,15 @@ public class SingerController {
      */
     @ApiOperation(value = "添加歌手")
     @PostMapping("add")
-    @RequiresRoles("root")
+//    @RequiresRoles("root")
     public Result addSinger(@RequestBody Singer singer) {
         log.info("singer:" + singer);
+        // 检查数据库中是否已经存在相同的歌手
+        Singer existingSinger = singerService.findBySingerId(singer.getSingerId());
+        if (existingSinger != null) {
+            log.warn("Singer with id " + singer.getSingerId() + " already exists.");
+            return Result.error("400","该歌手已存在");
+        }
         boolean addSinger = singerService.addSinger(singer);
         if (addSinger) {
             return Result.ok("添加成功");
@@ -81,7 +87,7 @@ public class SingerController {
      */
     @ApiOperation(value = "根据id删除歌手")
     @GetMapping("delete/{id}")
-    @RequiresRoles("root")
+//    @RequiresRoles("root")
     public Result deleteSinger(@PathVariable String id) {
         boolean deleteSinger = singerService.deleteSinger(id);
         if (deleteSinger) {
@@ -99,8 +105,11 @@ public class SingerController {
      */
     @ApiOperation("批量删除歌手")
     @PostMapping("deletes")
-    @RequiresRoles("root")
+//    @RequiresRoles("root")
     public Result deleteSingers(@RequestBody List<Integer> idList) {
+        //极端情况也是可以的，例如[
+        //1847,1847,1847,1847,1888,1850,1850,1849,1849,1855
+        //]
         boolean deleteSingers = singerService.deleteSingers(idList);
         if (deleteSingers) {
             return Result.ok("删除成功");
@@ -116,7 +125,7 @@ public class SingerController {
      */
     @ApiOperation(value = "通过主键id更新歌手信息")
     @PostMapping("update")
-    @RequiresRoles(value = {"root", "admin"}, logical = Logical.OR)
+//    @RequiresRoles(value = {"root", "admin"}, logical = Logical.OR)
     public Result updateSingerMsg(@RequestBody Singer singer) {
         boolean update = singerService.updateSingerMsg(singer);
         if (update) {
@@ -135,6 +144,7 @@ public class SingerController {
     @ApiOperation(value = "根据姓名查找歌手")
     @GetMapping("detail-name/{name}/{pageNo}/{pageSize}")
     public Result<List<Singer>> findSingerByName(@PathVariable("name") String name, @PathVariable int pageNo, @PathVariable int pageSize) {
+        //只有当pageNo为1的时候才能查到，因为就那一个人，只会有一条记录
         PageInfo<Singer> pageInfo = singerService.findSingerByName(name, pageNo, pageSize);
         List<Singer> singers = pageInfo.getList();
         return Result.ok(singers);
