@@ -42,12 +42,7 @@ public class SingerController {
         }
     }
 
-    /**
-     * 根据歌手id获得歌手信息
-     *
-     * @param id
-     * @return
-     */
+
     @ApiOperation("根据歌手id获得歌手信息")
     @GetMapping("{id}")
     public Result findBySingerId(@PathVariable String id) {
@@ -56,11 +51,7 @@ public class SingerController {
     }
 
 
-    /**
-     * 添加歌手
-     *
-     * @return
-     */
+
     @ApiOperation(value = "添加歌手")
     @PostMapping("add")
 //    @RequiresRoles("root")
@@ -80,11 +71,7 @@ public class SingerController {
         }
     }
 
-    /**
-     * 根据id删除歌手
-     *
-     * @return
-     */
+
     @ApiOperation(value = "根据id删除歌手")
     @GetMapping("delete/{id}")
 //    @RequiresRoles("root")
@@ -97,12 +84,7 @@ public class SingerController {
         }
     }
 
-    /**
-     * 批量删除歌手
-     *
-     * @param idList
-     * @return
-     */
+
     @ApiOperation("批量删除歌手")
     @PostMapping("deletes")
 //    @RequiresRoles("root")
@@ -118,11 +100,7 @@ public class SingerController {
         }
     }
 
-    /**
-     * 通过主键id更新歌手信息
-     *
-     * @return
-     */
+
     @ApiOperation(value = "通过主键id更新歌手信息")
     @PostMapping("update")
 //    @RequiresRoles(value = {"root", "admin"}, logical = Logical.OR)
@@ -136,11 +114,7 @@ public class SingerController {
     }
 
 
-    /**
-     * 根据姓名查找歌手
-     *
-     * @return
-     */
+
     @ApiOperation(value = "根据姓名查找歌手")
     @GetMapping("detail-name/{name}/{pageNo}/{pageSize}")
     public Result<List<Singer>> findSingerByName(@PathVariable("name") String name, @PathVariable int pageNo, @PathVariable int pageSize) {
@@ -150,11 +124,7 @@ public class SingerController {
         return Result.ok(singers);
     }
 
-    /**
-     * 根据性别查找歌手
-     *
-     * @return
-     */
+
     @ApiOperation(value = "根据性别查找歌手")
     @GetMapping("detail-sex/{sex}/{pageNo}/{pageSize}")
     public Result<List<Singer>> findSingerBySex(@PathVariable("sex") int sex, @PathVariable int pageNo, @PathVariable int pageSize) {
@@ -164,11 +134,7 @@ public class SingerController {
     }
 
 
-    /**
-     * 查询所有歌手
-     *
-     * @return
-     */
+
     @ApiOperation(value = "查询所有歌手")
     @GetMapping("allSinger/{pageNo}/{pageSize}")
     public Result<List<Singer>> allSinger(@PathVariable int pageNo, @PathVariable int pageSize) {
@@ -178,12 +144,7 @@ public class SingerController {
     }
 
 
-    /**
-     * 搜索框根据歌手名字模糊搜索
-     *
-     * @param keyWord
-     * @return
-     */
+
     @ApiOperation(value = "搜索框根据歌手名字模糊搜索")
     @PostMapping("search/{keyWord}")
     public Result<List<Singer>> searchSuggestion(@PathVariable String keyWord) {
@@ -192,12 +153,7 @@ public class SingerController {
     }
 
 
-    /**
-     * 随机获得n个歌手
-     *
-     * @param num
-     * @return
-     */
+
     @ApiOperation(value = "随机获得n个歌手")
     @GetMapping("getRandomSinger/{num}")
     public Result<List<Singer>> getRandomSinger(@PathVariable int num) {
@@ -232,11 +188,7 @@ public class SingerController {
         return Result.ok(res);
     }
 
-    /**
-     * 获得歌手总数
-     *
-     * @return
-     */
+
     @ApiOperation(value = "获得歌手总数")
     @GetMapping("count")
     public Result singerCount() {
@@ -244,11 +196,7 @@ public class SingerController {
         return Result.ok(singerCount);
     }
 
-    /**
-     * 根据歌手性别统计
-     *
-     * @return
-     */
+
     @ApiOperation(value = "根据歌手性别统计")
     @GetMapping("detail/sex")
     public Result singerCountOfSex() {
@@ -265,11 +213,7 @@ public class SingerController {
         return Result.ok(jsonObject);
     }
 
-    /**
-     * 根据歌手地区获得歌手数量
-     *
-     * @return
-     */
+
     @ApiOperation(value = "根据歌手地区获得歌手数量")
     @GetMapping("detail/location")
     public Result singerCountOfLocation() {

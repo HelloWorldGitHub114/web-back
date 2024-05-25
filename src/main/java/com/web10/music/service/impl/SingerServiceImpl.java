@@ -37,9 +37,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 根据歌手id获得歌手信息
-     *
-     * @param singerId
-     * @return
      */
     @Override
     public Singer findBySingerId(String singerId) {
@@ -53,9 +50,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 新增歌手
-     *
-     * @param singer
-     * @return
      */
     @Override
     public boolean addSinger(Singer singer) {
@@ -65,9 +59,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 搜索框根据歌手名字模糊搜索
-     *
-     * @param name
-     * @return
      */
     @Override
     public List<Singer> findByNameLike(String name) {
@@ -79,8 +70,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 通过id删除歌手
-     *
-     * @return
      */
     @Override
     public boolean deleteSinger(String id) {
@@ -89,9 +78,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 批量删除歌手
-     *
-     * @param ids
-     * @return
      */
     @Override
     public boolean deleteSingers(List<Integer> ids) {
@@ -100,8 +86,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 通过主键id更新歌手信息
-     *
-     * @return
      */
     @Override
     public boolean updateSingerMsg(Singer singer) {
@@ -114,8 +98,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 更新歌手头像
-     *
-     * @return
      */
     @Override
     public boolean updateSingerPic() {
@@ -124,8 +106,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 根据姓名查询歌手
-     *
-     * @return
      */
     @Override
     public PageInfo<Singer> findSingerByName(String name, int pageNo, int pageSize) {
@@ -141,8 +121,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 根据性别查找歌手
-     *
-     * @return
      */
     @Override
     public PageInfo<Singer> findSingerBySex(int sex, int pageNo, int pageSize) {
@@ -157,8 +135,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 获得歌手总数量
-     *
-     * @return
      */
     @Override
     public int singerCount() {
@@ -167,9 +143,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 根据性别获得歌曲数量
-     *
-     * @param sex
-     * @return
      */
     @Override
     public int singerCountOfSex(int sex) {
@@ -181,9 +154,6 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     /**
      * 根据歌手地区获得歌手数量
-     *
-     * @param location
-     * @return
      */
     @Override
     public int singerCountOfLocation(String location) {
