@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * <p>
@@ -35,9 +34,5 @@ public class Role implements Serializable {
 
     @ApiModelProperty(value = "角色描述")
     private String desc;
-
-    @ApiModelProperty(value = "权限集合")
-    private List<Permission> perms;
-
 
 }

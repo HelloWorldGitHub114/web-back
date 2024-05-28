@@ -13,9 +13,9 @@ import com.web10.music.service.ISongService;
 import com.web10.music.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,16 +27,16 @@ import java.util.List;
 @Api(tags = "评论管理控制器")
 @RequestMapping("/comment")
 public class CommentController {
-    @Autowired
+    @Resource
     private ICommentService commentService;
 
-    @Autowired
+    @Resource
     private IUserService userService;
 
-    @Autowired
+    @Resource
     private ISongService songService;
 
-    @Autowired
+    @Resource
     private ISongListService songListService;
 
     /**
@@ -68,7 +68,7 @@ public class CommentController {
      */
     @ApiOperation("分页查询所有评论")
     @GetMapping("all/{pageNo}/{pageSize}")
-    public Result<List<Comment>> allComments(@PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result allComments(@PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<Comment> pageInfo = commentService.allComments(pageNo, pageSize);
         List<Comment> comments = pageInfo.getList();
         return Result.ok(comments);
@@ -79,7 +79,7 @@ public class CommentController {
      */
     @ApiOperation("分页查询指定歌曲id下的评论")
     @GetMapping("detail-songId/{songId}/{pageNo}/{pageSize}")
-    public Result<List<Comment>> commentOfSongId(@PathVariable int songId, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result commentOfSongId(@PathVariable int songId, @PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<Comment> pageInfo = commentService.commentOfSongId(songId, pageNo, pageSize);
         List<Comment> comments = pageInfo.getList();
         return Result.ok(comments);
@@ -90,7 +90,7 @@ public class CommentController {
      */
     @ApiOperation("分页查询指定歌单id下的评论")
     @GetMapping("detail-songListId/{songListId}/{pageNo}/{pageSize}")
-    public Result<List<Comment>> commentOfSongListId(@PathVariable int songListId, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result commentOfSongListId(@PathVariable int songListId, @PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<Comment> pageInfo = commentService.commentOfSongListId(songListId, pageNo, pageSize);
         List<Comment> comments = pageInfo.getList();
         return Result.ok(comments);

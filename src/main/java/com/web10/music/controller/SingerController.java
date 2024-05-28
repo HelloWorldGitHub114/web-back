@@ -117,7 +117,7 @@ public class SingerController {
 
     @ApiOperation(value = "根据姓名查找歌手")
     @GetMapping("detail-name/{name}/{pageNo}/{pageSize}")
-    public Result<List<Singer>> findSingerByName(@PathVariable("name") String name, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result findSingerByName(@PathVariable("name") String name, @PathVariable int pageNo, @PathVariable int pageSize) {
         //只有当pageNo为1的时候才能查到，因为就那一个人，只会有一条记录
         PageInfo<Singer> pageInfo = singerService.findSingerByName(name, pageNo, pageSize);
         List<Singer> singers = pageInfo.getList();
@@ -127,7 +127,7 @@ public class SingerController {
 
     @ApiOperation(value = "根据性别查找歌手")
     @GetMapping("detail-sex/{sex}/{pageNo}/{pageSize}")
-    public Result<List<Singer>> findSingerBySex(@PathVariable("sex") int sex, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result findSingerBySex(@PathVariable("sex") int sex, @PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<Singer> pageInfo = singerService.findSingerBySex(sex, pageNo, pageSize);
         List<Singer> singers = pageInfo.getList();
         return Result.ok(singers);
@@ -137,7 +137,7 @@ public class SingerController {
 
     @ApiOperation(value = "查询所有歌手")
     @GetMapping("allSinger/{pageNo}/{pageSize}")
-    public Result<List<Singer>> allSinger(@PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result allSinger(@PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<Singer> pageInfo = singerService.allSinger(pageNo, pageSize);
         List<Singer> singers = pageInfo.getList();
         return Result.ok(singers);
@@ -147,7 +147,7 @@ public class SingerController {
 
     @ApiOperation(value = "搜索框根据歌手名字模糊搜索")
     @PostMapping("search/{keyWord}")
-    public Result<List<Singer>> searchSuggestion(@PathVariable String keyWord) {
+    public Result searchSuggestion(@PathVariable String keyWord) {
         List<Singer> byNameLike = singerService.findByNameLike(keyWord);
         return Result.ok(byNameLike);
     }
@@ -156,7 +156,7 @@ public class SingerController {
 
     @ApiOperation(value = "随机获得n个歌手")
     @GetMapping("getRandomSinger/{num}")
-    public Result<List<Singer>> getRandomSinger(@PathVariable int num) {
+    public Result getRandomSinger(@PathVariable int num) {
         List<Singer> res = new ArrayList();
 
         PageInfo<Singer> pageInfo = singerService.allSinger(1, 50);

@@ -73,7 +73,7 @@ public class UsernamePasswordRealm extends AuthenticatingRealm {//只管验证�
         String salt = userFromDB.getSalt();
 
         //在使用jwt访问时，shiro中能拿到的用户信息只能是token中携带的jwtUser，所以此处保持统一。
-        JwtUser jwtUser=new JwtUser(userFromDB.getUsername(),userFromDB.getRolesString(),userFromDB.getPermissionsString());
+        JwtUser jwtUser=new JwtUser(userFromDB.getUsername(),userFromDB.getRoles(),userFromDB.getPermissions());
         log.info("jwtUser: "+jwtUser);
         SimpleAuthenticationInfo res = new SimpleAuthenticationInfo(userFromDB, passwordFromDB, ByteSource.Util.bytes(salt),
                 getName());

@@ -130,7 +130,7 @@ public class SongListController {
      */
     @ApiOperation(value = "随机获得n个歌单")
     @GetMapping("getRandomSongList/{num}")
-    public Result<List<SongList>> getRandomSongList(@PathVariable int num) {
+    public Result getRandomSongList(@PathVariable int num) {
 
         List<SongList> res = new ArrayList<>();
         //  先查询出所有歌单的id
@@ -168,7 +168,7 @@ public class SongListController {
      */
     @ApiOperation(value = "分页查询所有歌单")
     @GetMapping("allSongList/{pageNo}/{pageSize}")
-    public Result<List<SongList>> allSongList(@PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result allSongList(@PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<SongList> pageInfo = songListService.allSongList(pageNo, pageSize);
         List<SongList> songLists = pageInfo.getList();
 
@@ -180,7 +180,7 @@ public class SongListController {
      */
     @ApiOperation(value = "根据歌单题目模糊查询歌单")
     @GetMapping("title/detail/{title}/{pageNo}/{pageSize}")
-    public Result<List<SongList>> findSongListByTitle(@PathVariable String title, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result findSongListByTitle(@PathVariable String title, @PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<SongList> pageInfo = songListService.findSongListByTitle(title, pageNo, pageSize);
         List<SongList> songLists = pageInfo.getList();
         return Result.ok(songLists);
@@ -191,7 +191,7 @@ public class SongListController {
      */
     @ApiOperation(value = "根据歌单风格模糊查询歌单")
     @GetMapping("style/detail/{style}/{pageNo}/{pageSize}")
-    public Result<List<SongList>> findSongListByStyle(@PathVariable String style, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result findSongListByStyle(@PathVariable String style, @PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<SongList> pageInfo = songListService.findSongListByStyle(style, pageNo, pageSize);
         List<SongList> songLists = pageInfo.getList();
         return Result.ok(songLists);
@@ -202,7 +202,7 @@ public class SongListController {
      */
     @ApiOperation("根据userId查询该用户创建的所有歌单")
     @GetMapping("detail-userId/{userId}")
-    public Result<List<SongList>> findListSongByUserId(@PathVariable int userId) {
+    public Result findListSongByUserId(@PathVariable int userId) {
         List<SongList> songLists = songListService.findSongListByUserId(userId);
         return Result.ok(songLists);
 

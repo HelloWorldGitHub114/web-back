@@ -12,14 +12,14 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Result<T> implements Serializable, IResult<T> {
+public class Result implements Serializable{
 
     /**
      * 200:成功   其他：失败
      */
     private String code;
     private String msg;
-    private T data;
+    private Object data;
 
     public static Result ok() {
         return new Result(ErrorCode.SUCCESS.getCode(), ErrorCode.SUCCESS.getMessage(), null);
@@ -58,31 +58,6 @@ public class Result<T> implements Serializable, IResult<T> {
     public static Result error(ErrorCode errorCode, String msg) {
         return new Result(ErrorCode.ERROR.getCode(), msg, null);
     }
-
-    /**
-     * 获得信息
-     */
-    @Override
-    public String getMsg() {
-        return this.msg;
-    }
-
-    /**
-     * 获得状态码
-     */
-    @Override
-    public String getCode() {
-        return this.code;
-    }
-
-    /**
-     * 获得数据
-     */
-    @Override
-    public T getData() {
-        return this.data;
-    }
-
     @Override
     public String toString() {
         return "Result{" +

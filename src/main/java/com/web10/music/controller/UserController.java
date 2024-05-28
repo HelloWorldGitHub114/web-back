@@ -11,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +51,7 @@ public class UserController {
      */
     @ApiOperation("用户登录")
     @PostMapping("login")
-    public Result<JSONObject> login(@RequestParam String username, @RequestParam String password) {
+    public Result login(@RequestParam String username, @RequestParam String password) {
         JSONObject jsonObject;
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return Result.ok("请输入用户名和密码！");
@@ -66,11 +65,11 @@ public class UserController {
      */
     @ApiOperation("退出登录")
     @GetMapping("/logout")
+    @RequiresPermissions("user")
     public Result logout() {
         Subject subject = SecurityUtils.getSubject();
         JwtUser jwtUser = (JwtUser) subject.getPrincipal();
         if (subject.isAuthenticated()) {
-            // session 会销毁，在SessionListener监听session销毁，清理权限缓存
             subject.logout();
         }
         return Result.ok("用户" + jwtUser.getUsername() + "退出登录");
@@ -81,9 +80,8 @@ public class UserController {
      */
     @ApiOperation("添加用户")
     @PostMapping("add")
-    @RequiresPermissions(value = {"root", "admin"}, logical = Logical.OR)
+    @RequiresPermissions(value = "admin")
     public Result addUser(@RequestBody User user) {
-        log.info("addUser" + user);
         boolean addUser = userService.addUser(user);
         if (addUser) {
             return Result.ok("添加成功");
@@ -98,7 +96,7 @@ public class UserController {
      */
     @ApiOperation("更新用户信息")
     @PostMapping("update")
-    @RequiresPermissions(value = {"root", "admin"}, logical = Logical.OR)
+    @RequiresPermissions(value = "admin")
     public Result updateUserMsg(@RequestBody User user) {
         boolean updateUserMsg = userService.updateUserMsg(user);
         if (updateUserMsg) {
@@ -129,7 +127,7 @@ public class UserController {
      */
     @ApiOperation("根据id查找用户")
     @GetMapping("/detail/{id}")
-    public Result<User> findUserById(@PathVariable int id) {
+    public Result findUserById(@PathVariable int id) {
         User user = userService.findUserById(id);
         return Result.ok(user);
     }

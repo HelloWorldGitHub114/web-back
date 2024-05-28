@@ -40,7 +40,10 @@
     <select id="findAllUsers" resultType="com.web10.music.entity.User">
         select * from user order by create_time desc
     </select>
-    <select id="insertUserRole">
+    <insert id="insertUserRole">
         insert into user_role(user_id,role_id) values(#{userId},#{roleId})
-    </select>
+    </insert>
+    <delete id="deleteUserRole">
+        delete from user_role where user_id = #{userId}
+    </delete>
 </mapper>

@@ -13,8 +13,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +39,6 @@ public class User implements Serializable {
     private String username;
 
     @ApiModelProperty(value = "密码")
-    @JsonIgnore
     private String password;
 
     @ApiModelProperty(value = "昵称")
@@ -54,9 +53,9 @@ public class User implements Serializable {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "生日")
-    private LocalDateTime birth;
+    private LocalDate birth;
 
     @ApiModelProperty(value = "个性签名")
     private String introduction;
@@ -72,39 +71,20 @@ public class User implements Serializable {
     private String salt;
 
     @TableField(fill = FieldFill.INSERT)
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间（自动生成）")
     @JsonIgnore
     private LocalDateTime createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "更新时间（自动生成）")
     @JsonIgnore
     private LocalDateTime updateTime;
 
     @TableField(exist = false)
-    //@ApiModelProperty(value = "定义角色集合")
-    @JsonIgnore
-    private List<Role> roles;
-
     @ApiModelProperty(value = "定义角色集合")
-    public List<String> getRolesString() {
-        if(roles == null) return null;
-        List<String> rolesString = new ArrayList<>();
-        for (Role role : roles) {
-            rolesString.add(role.getName());
-        }
-        return rolesString;
-    }
+    private List<String> roles;
 
-    @ApiModelProperty(value = "定义权限集合")
-    public List<String> getPermissionsString() {
-        if(roles == null) return null;
-        List<String> permsString = new ArrayList<>();
-        for (Role role : roles) {
-            for (Permission permission : role.getPerms()) {
-                permsString.add(permission.getName());
-            }
-        }
-        return permsString;
-    }
+    @TableField(exist = false)
+    @ApiModelProperty(value = "定义权限集合（前端不传）")
+    private List<String> permissions;
 }

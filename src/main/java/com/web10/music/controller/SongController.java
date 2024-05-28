@@ -68,7 +68,7 @@ public class SongController {
      */
     @ApiOperation(value = "查询所有歌曲")
     @GetMapping("allSong/{pageNo}/{pageSize}")
-    public Result<List<Song>> allSong(@PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result allSong(@PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<Song> pageInfo = songService.allSong(pageNo, pageSize);
         List<Song> songs = pageInfo.getList();
         return Result.ok(songs);
@@ -79,7 +79,7 @@ public class SongController {
      */
     @ApiOperation(value = "根据id查找歌曲歌曲")
     @GetMapping("detail/{id}")
-    public Result<Song> findSongById(@PathVariable("id") int id) {
+    public Result findSongById(@PathVariable("id") int id) {
         Song song = songService.findSongById(id);
         return Result.ok(song);
     }
@@ -89,7 +89,7 @@ public class SongController {
      */
     @ApiOperation(value = "查询指定歌手ID的所有歌曲")
     @GetMapping("/singer-id/detail/{singerId}/{pageNo}/{pageSize}")
-    public Result<Song> findSongsBySingerId(@PathVariable("singerId") String singerId, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result findSongsBySingerId(@PathVariable("singerId") String singerId, @PathVariable int pageNo, @PathVariable int pageSize) {
         log.info("singerId = " + singerId + " pageNo = " + pageNo + " pageSize = " + pageSize);
         JSONObject jsonObject = new JSONObject();
 
@@ -112,7 +112,7 @@ public class SongController {
      */
     @ApiOperation(value = "查询指定歌手名的所有歌曲")
     @GetMapping("/singer-name/detail/{singerName}/{pageNo}/{pageSize}")
-    public Result<List<Song>> findSongsBySingerName(@PathVariable String singerName, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result findSongsBySingerName(@PathVariable String singerName, @PathVariable int pageNo, @PathVariable int pageSize) {
         log.info("singerName = " + singerName);
         PageInfo<Song> pageInfo = songService.findSongBySingerName(singerName, pageNo, pageSize);
         List<Song> songs = pageInfo.getList();
@@ -124,7 +124,7 @@ public class SongController {
      */
     @ApiOperation(value = "查询指定歌曲名的歌曲")
     @GetMapping("/song-name/detail/{songName}/{pageNo}/{pageSize}")
-    public Result<List<Song>> findSongBySongName(@PathVariable String songName, @PathVariable int pageNo, @PathVariable int pageSize) {
+    public Result findSongBySongName(@PathVariable String songName, @PathVariable int pageNo, @PathVariable int pageSize) {
         PageInfo<Song> pageInfo = songService.findSongByName(songName, pageNo, pageSize);
         List<Song> songs = pageInfo.getList();
         return Result.ok(songs);

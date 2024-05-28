@@ -35,5 +35,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     List<User> findAllUsers();
 
-    int insertUserRole(int userId, int roleId);
+    Integer insertUserRole(int userId, int roleId);
+
+    Integer deleteUserRole(int userId);
 }
