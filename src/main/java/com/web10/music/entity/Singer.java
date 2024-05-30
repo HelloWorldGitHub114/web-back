@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * <p>
@@ -27,76 +27,35 @@ public class Singer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 歌手id
-     */
+    @ApiModelProperty(value = "歌手id")
     private String singerId;
 
-
-    /**
-     * 姓名
-     */
+    @ApiModelProperty(value = "姓名")
     private String name;
 
-
-
-
-    /**
-     * 性别
-     */
+    @ApiModelProperty(value = "性别 0女1男")
     private Integer sex;
 
-    /**
-     * 照片
-     */
+    @ApiModelProperty(value = "照片")
     private String pic;
 
-    /**
-     * 生日
-     */
-    private Date birth;
-
-    /**
-     * 地区
-     */
+    @ApiModelProperty(value = "地区")
     private String location;
 
-    /**
-     * 发行时间
-     */
+    @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
+    @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    /**
-     * 简介
-     */
+    @ApiModelProperty(value = "简介")
     private String introduction;
-
-    public Singer(String singerId, String name) {
-        this.singerId = singerId;
-        this.name = name;
-    }
-
-    public Singer(String singerId, String name, int sex, String pic, String location, String introduction) {
-        this.singerId = singerId;
-        this.name = name;
-        this.sex = sex;
-        this.pic = pic;
-        this.location = location;
-        this.introduction = introduction;
-    }
 }

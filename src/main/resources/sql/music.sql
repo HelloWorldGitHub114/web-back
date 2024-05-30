@@ -122,7 +122,6 @@ CREATE TABLE `singer` (
   `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名字',
   `sex` tinyint DEFAULT NULL COMMENT '性别',
   `pic` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '照片',
-  `birth` datetime DEFAULT NULL COMMENT '生日',
   `location` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '地区',
   `introduction` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '简介',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
