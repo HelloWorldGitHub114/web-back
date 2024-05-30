@@ -1,7 +1,6 @@
 package com.web10.music.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.pagehelper.PageInfo;
 import com.web10.music.entity.Comment;
 
 import java.util.List;
@@ -36,15 +35,20 @@ public interface ICommentService extends IService<Comment> {
     /**
      * 分页查询所有评论
      */
-    PageInfo<Comment> allComments(int pageNo, int pageSize);
+    List<Comment> allComments(int pageNo, int pageSize);
 
     /**
      * 分页查询指定歌曲id下的评论
      */
-    PageInfo<Comment> commentOfSongId(Integer songId,int pageNo, int pageSize);
+    List<Comment> commentOfSongId(Integer songId, int pageNo, int pageSize);
 
     /**
      * 分页查询指定歌单id下的评论
      */
-    PageInfo<Comment> commentOfSongListId(Integer songListId,int pageNo, int pageSize);
+    List<Comment> commentOfSongListId(Integer songListId, int pageNo, int pageSize);
+
+    /**
+     * 分页查询指定mv id下的评论
+     */
+    List<Comment> commentOfMvId(Integer mvId, int pageNo, int pageSize);
 }

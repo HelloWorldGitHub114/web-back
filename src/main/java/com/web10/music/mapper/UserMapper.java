@@ -33,6 +33,11 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User findUserById(int id);
 
+    /**
+     * 根据用户id获取用户昵称
+     */
+    String findUserNickNameById(int id);
+
     List<User> findAllUsers();
 
     Integer insertUserRole(int userId, int roleId);

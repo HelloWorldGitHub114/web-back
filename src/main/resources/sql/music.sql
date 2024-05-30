@@ -27,6 +27,7 @@ CREATE TABLE `comment` (
   `user_id` int NOT NULL COMMENT '用户id',
   `song_id` int DEFAULT NULL COMMENT '歌曲id',
   `song_list_id` int DEFAULT NULL COMMENT '歌单id',
+  `mv_id` int DEFAULT NULL COMMENT 'mv id',
   `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci COMMENT '评论正文',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `up` int unsigned DEFAULT '0' COMMENT '点赞数',
@@ -34,7 +35,9 @@ CREATE TABLE `comment` (
   KEY `comment_user_id_fk` (`user_id`),
   KEY `comment_song_id_fk` (`song_id`),
   CONSTRAINT `comment_song_id_fk` FOREIGN KEY (`song_id`) REFERENCES `song` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `comment_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `comment_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_song_list_id_fk` FOREIGN KEY (`song_list_id`) REFERENCES `song_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_mv_id_fk` FOREIGN KEY (`mv_id`) REFERENCES `mv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='评论表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -223,6 +226,28 @@ CREATE TABLE `user_role` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+--
+-- Table structure for table `mv`
+--
+
+DROP TABLE IF EXISTS `mv`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mv` (
+                             `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+                             `cover` varchar(255) DEFAULT NULL COMMENT '封面url',
+                             `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '名字',
+                             `desc` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
+                             `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'mv的url',
+                             `artist_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '歌手名字',
+                             `publish_time` datetime DEFAULT NULL COMMENT '发行时间',
+                             `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                             `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+                             PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='mv表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
@@ -230,5 +255,3 @@ CREATE TABLE `user_role` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-05-24  0:15:05
