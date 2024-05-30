@@ -36,7 +36,7 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 根据用户id获取用户昵称
      */
-    String findUserNickNameById(int id);
+    User findUserNickNameAndAvatarById(int id);
 
     List<User> findAllUsers();
 

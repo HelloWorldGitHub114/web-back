@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.web10.music.entity.Comment;
+import com.web10.music.entity.User;
 import com.web10.music.mapper.CommentMapper;
 import com.web10.music.mapper.UserMapper;
 import com.web10.music.service.ICommentService;
@@ -72,11 +73,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         QueryWrapper<Comment> queryWrapper = new QueryWrapper();
         queryWrapper.orderByDesc("create_time","id");
 
-        List<Comment> comments = commentMapper.selectList(queryWrapper);
-        for(Comment comment : comments){
-            comment.setNickname(userMapper.findUserNickNameById(comment.getUserId()));
-        }
-        return comments;
+        return getFullComments(queryWrapper);
     }
 
     /**
@@ -88,11 +85,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         PageHelper.startPage(pageNo, pageSize);
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("song_id", songId);
-        List<Comment> comments = commentMapper.selectList(queryWrapper);
-        for(Comment comment : comments){
-            comment.setNickname(userMapper.findUserNickNameById(comment.getUserId()));
-        }
-        return comments;
+        return getFullComments(queryWrapper);
     }
 
     /**
@@ -104,11 +97,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         PageHelper.startPage(pageNo, pageSize);
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("song_list_id", songListId);
-        List<Comment> comments = commentMapper.selectList(queryWrapper);
-        for(Comment comment : comments){
-            comment.setNickname(userMapper.findUserNickNameById(comment.getUserId()));
-        }
-        return comments;
+        return getFullComments(queryWrapper);
     }
 
     /**
@@ -120,9 +109,15 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         PageHelper.startPage(pageNo, pageSize);
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mv_id", mvId);
+        return getFullComments(queryWrapper);
+    }
+
+    private List<Comment> getFullComments(QueryWrapper<Comment> queryWrapper) {
         List<Comment> comments = commentMapper.selectList(queryWrapper);
         for(Comment comment : comments){
-            comment.setNickname(userMapper.findUserNickNameById(comment.getUserId()));
+            User user = userMapper.findUserNickNameAndAvatarById(comment.getUserId());
+            comment.setNickname(user.getNickname());
+            comment.setAvatar(user.getAvatar());
         }
         return comments;
     }

@@ -39,6 +39,10 @@ public class Comment implements Serializable {
     @TableField(exist = false)
     private String nickname;
 
+    @ApiModelProperty(value = "用户头像")
+    @TableField(exist = false)
+    private String avatar;
+
     @ApiModelProperty(value = "歌曲id")
     private Integer songId;
 
