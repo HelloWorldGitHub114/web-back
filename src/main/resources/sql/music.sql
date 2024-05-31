@@ -236,7 +236,7 @@ CREATE TABLE `mv` (
                              `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
                              `cover` varchar(255) DEFAULT NULL COMMENT '封面url',
                              `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '名字',
-                             `desc` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
+                             `_desc` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
                              `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'mv的url',
                              `artist_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '歌手名字',
                              `publish_time` datetime DEFAULT NULL COMMENT '发行时间',
@@ -254,3 +254,13 @@ CREATE TABLE `mv` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Insert test data into mv table
+INSERT INTO `mv` (`cover`, `name`, `_desc`, `url`, `artist_name`, `publish_time`, `create_time`, `update_time`) VALUES
+('http://dummyimage.com/100x100', '流沙', '这是流沙的MV', 'http://dummyimage.com/200x200', 'D.T', '2012-12-31 00:00:00', NOW(), NOW()),
+('http://dummyimage.com/101x101', '沙漠骆驼', '这是沙漠骆驼的MV', 'http://dummyimage.com/201x201', '展展与罗罗', '2018-06-01 00:00:00', NOW(), NOW()),
+('http://dummyimage.com/102x102', '小幸运', '这是小幸运的MV', 'http://dummyimage.com/202x202', '田馥甄', '2015-08-11 00:00:00', NOW(), NOW()),
+('http://dummyimage.com/103x103', '演员', '这是演员的MV', 'http://dummyimage.com/203x203', '薛之谦', '2015-06-17 00:00:00', NOW(), NOW()),
+('http://dummyimage.com/104x104', '告白气球', '这是告白气球的MV', 'http://dummyimage.com/204x204', '周杰伦', '2016-06-24 00:00:00', NOW(), NOW());
+
+
