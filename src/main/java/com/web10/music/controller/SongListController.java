@@ -217,6 +217,13 @@ public class SongListController {
         int songListCount = songListService.songListCount();
         return Result.ok(songListCount);
     }
+
+    @ApiOperation(value = "歌单id获取歌单")
+    @GetMapping("detial/{id}")
+    public Result findSongListById(@PathVariable int id) {
+        SongList songList = songListService.findById(id);
+        return Result.ok(songList);
+    }
 }
 
 
