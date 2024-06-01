@@ -34,4 +34,9 @@ public interface IMvService {
      * 按照publish_time或者play_count降序查询mv
      */
     List<Mv> getAllMvsOrderBy(String order);
+
+    /**
+     * 更新mv信息
+     */
+    void updateMv(Mv mv);
 }

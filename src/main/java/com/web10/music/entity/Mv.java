@@ -54,4 +54,7 @@ public class Mv {
   @TableField(fill = FieldFill.INSERT_UPDATE)
   @ApiModelProperty(value = "更新时间（自动生成）")
   private LocalDateTime updateTime;
+
+  @ApiModelProperty(value = "播放量")
+  private Integer playCount;
 }

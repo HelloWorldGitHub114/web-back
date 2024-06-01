@@ -67,15 +67,19 @@ public class MvController {
     }
 
     /**
-     * 根据mvid查询mv的url
+     * 根据mvid查询mv的url，并自增播放量
      */
-    @ApiOperation("根据mvid查询mv的url")
+    @ApiOperation("根据mvid查询mv的url，并自增播放量")
     @GetMapping("detail")
     public Result getMvUrlByMvId(@RequestParam Integer mvid){
         Mv mv = mvService.selectMvByMvId(mvid);
         if (mv == null) {
             return Result.ok("该mv不存在");
         }
+        // 自增播放量
+        mv.setPlayCount(mv.getPlayCount() + 1);
+        // 更新播放量到数据库
+        mvService.updateMv(mv);
         return Result.ok(mv.getUrl());
     }
 

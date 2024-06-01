@@ -97,4 +97,11 @@ public class MvServiceImpl extends ServiceImpl<MvMapper, Mv> implements IMvServi
         queryWrapper.orderByDesc(order);
         return mvMapper.selectList(queryWrapper);
     }
+
+    /**
+     * 更新mv信息
+     */
+    public void updateMv(Mv mv) {
+        mvMapper.updateById(mv);
+    }
 }
