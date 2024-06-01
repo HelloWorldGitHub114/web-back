@@ -47,6 +47,9 @@ public class MvController {
     @GetMapping("simi")
     public Result recommendMvByMvId(@RequestParam Integer mvid){
         Mv mv = mvService.selectMvByMvId(mvid);
+        if (mv == null) {
+            return Result.ok("该mv不存在");
+        }
         String artist_name = mv.getArtistName();
         List<Mv> mvs = mvService.selectMvsByartistName(artist_name, mvid);
         if (mvs.isEmpty()) {
@@ -70,7 +73,7 @@ public class MvController {
      * 根据mvid查询mv的url，并自增播放量
      */
     @ApiOperation("根据mvid查询mv的url，并自增播放量")
-    @GetMapping("detail")
+    @GetMapping("url")
     public Result getMvUrlByMvId(@RequestParam Integer mvid){
         Mv mv = mvService.selectMvByMvId(mvid);
         if (mv == null) {
@@ -80,7 +83,7 @@ public class MvController {
         mv.setPlayCount(mv.getPlayCount() + 1);
         // 更新播放量到数据库
         mvService.updateMv(mv);
-        return Result.ok(mv.getUrl());
+        return Result.ok("获取url成功",mv.getUrl());
     }
 
     /**
