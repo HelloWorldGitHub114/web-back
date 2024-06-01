@@ -17,7 +17,7 @@
                   LEFT JOIN role r
                             ON ur.role_id = r.id
         WHERE
-            ur.id = #{userId}
+            ur.user_id = #{userId}
     </select>
     <select id="findPermsByRoleId" parameterType="int" resultType="com.web10.music.entity.Permission">
         select p.id,p.name,p.desc

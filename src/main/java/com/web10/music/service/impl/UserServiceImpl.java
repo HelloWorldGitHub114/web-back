@@ -200,7 +200,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = userMapper.findByUserName(username);
         if(user != null) {
             user.setRoles(new ArrayList<>());
-            //把用户的角色和权限不重复的加入到用户对象中（角色不会重复，权限可能会，所以用set）
+            //不重复地把用户的角色和权限加入到用户对象中（角色不会重复，权限可能会，所以用set）
             List<Role> roleList = userMapper.findRolesByUserId(user.getId());
             Set<String> permissions = new HashSet<>();
             for(Role role : roleList) {
