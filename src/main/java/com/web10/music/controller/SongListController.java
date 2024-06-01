@@ -219,7 +219,7 @@ public class SongListController {
     }
 
     @ApiOperation(value = "歌单id获取歌单")
-    @GetMapping("detial/{id}")
+    @GetMapping("detail/{id}")
     public Result findSongListById(@PathVariable int id) {
         SongList songList = songListService.findById(id);
         return Result.ok(songList);
