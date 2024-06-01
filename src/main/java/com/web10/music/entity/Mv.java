@@ -33,7 +33,7 @@ public class Mv {
   private String name;
 
   @ApiModelProperty(value = "描述")
-  private String _desc;
+  private String introduction;
 
   @ApiModelProperty(value = "播放链接")
   private String url;
