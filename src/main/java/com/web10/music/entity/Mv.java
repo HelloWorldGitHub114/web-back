@@ -12,7 +12,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
-
+/**
+ * <p>
+ * Mv
+ * </p>
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "mv", description = "mv表")
@@ -20,7 +24,7 @@ public class Mv {
 
   @ApiModelProperty(value = "主键")
   @TableId(value = "id", type = IdType.AUTO)
-  private long id;
+  private Integer id;
 
   @ApiModelProperty(value = "封面url")
   private String cover;
@@ -29,7 +33,7 @@ public class Mv {
   private String name;
 
   @ApiModelProperty(value = "描述")
-  private String desc;
+  private String _desc;
 
   @ApiModelProperty(value = "播放链接")
   private String url;
