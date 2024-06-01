@@ -78,7 +78,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         //生成token
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        JwtUser jwtUser = new JwtUser(user.getUsername(), user.getRoles(), user.getPermissions());
+        JwtUser jwtUser = new JwtUser(user.getId(), user.getRoles(), user.getPermissions());
         user.setPassword(null);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("user", user);
@@ -126,13 +126,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.deleteById(id) > 0;
     }
 
+    /**
+     * 用户根据id更新用户信息，不包括角色信息，只能更自己的
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateUser(User user) {
+        try {
+            User userDB = userMapper.findUserById(user.getId());
+            if(user.getPassword() != null) {
+                Md5Hash md5Hash = new Md5Hash(user.getPassword(), userDB.getSalt(), 1024);
+                user.setPassword(md5Hash.toHex());
+            }
+            userMapper.updateById(user);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 根据id更新用户信息，包括角色信息
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateUserMsg(User user) {
+    public boolean updateUserAdmin(User user) {
         try {
             User userDB = userMapper.findUserById(user.getId());
             if(user.getPassword() != null) {

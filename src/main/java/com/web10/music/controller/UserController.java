@@ -72,7 +72,7 @@ public class UserController {
         if (subject.isAuthenticated()) {
             subject.logout();
         }
-        return Result.ok("用户" + jwtUser.getUsername() + "退出登录");
+        return Result.ok("用户" + jwtUser.getId() + "退出登录");
     }
 
     /**
@@ -90,22 +90,41 @@ public class UserController {
         }
     }
 
-
     /**
      * 更新用户信息
      */
     @ApiOperation("更新用户信息")
     @PostMapping("update")
+    @RequiresPermissions(value = "user")
+    public Result updateUser(@RequestBody User user) {
+        Subject subject = SecurityUtils.getSubject();
+        JwtUser jwtUser = (JwtUser) subject.getPrincipal();
+        if(user.getId() != null && user.getId().equals(jwtUser.getId())){
+            boolean updateUserMsg = userService.updateUser(user);
+            if (updateUserMsg) {
+                return Result.ok("更新成功");
+            } else {
+                return Result.ok("更新失败");
+            }
+        }else
+            return Result.ok("更新失败，只能更新自己的信息");
+    }
+
+
+    /**
+     * 更新用户信息
+     */
+    @ApiOperation("更新用户信息")
+    @PostMapping("update-admin")
     @RequiresPermissions(value = "admin")
-    public Result updateUserMsg(@RequestBody User user) {
-        boolean updateUserMsg = userService.updateUserMsg(user);
+    public Result updateUserAdmin(@RequestBody User user) {
+        boolean updateUserMsg = userService.updateUserAdmin(user);
         if (updateUserMsg) {
             return Result.ok("更新成功");
         } else {
             return Result.ok("更新失败");
         }
     }
-
 
     /**
      * 根据id删除用户

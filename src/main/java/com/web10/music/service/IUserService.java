@@ -3,6 +3,7 @@ package com.web10.music.service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.web10.music.entity.User;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -37,10 +38,13 @@ public interface IUserService extends IService<User> {
      */
     boolean deleteUserById(int id);
 
+    @Transactional(rollbackFor = Exception.class)
+    boolean updateUser(User user);
+
     /**
      * 根据id更新用户信息，包括角色信息
      */
-    boolean updateUserMsg(User user);
+    boolean updateUserAdmin(User user);
 
 
     /**

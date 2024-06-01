@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class JwtUser {
 
-    String username;
+    Integer id;
 
     private List<String> roles;//用一对多映射查询，联u,u-r,r三表，集合里只放role的name
 

@@ -5,13 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.web10.music.entity.Comment;
 import com.web10.music.entity.Mv;
-import com.web10.music.entity.SongList;
-import com.web10.music.entity.User;
-import com.web10.music.mapper.CommentMapper;
 import com.web10.music.mapper.MvMapper;
-import com.web10.music.service.ICommentService;
 import com.web10.music.service.IMvService;
 import org.springframework.stereotype.Service;
 
@@ -47,8 +42,7 @@ public class MvServiceImpl extends ServiceImpl<MvMapper, Mv> implements IMvServi
     }
 
     private List<Mv> getFullMvs(QueryWrapper<Mv> queryWrapper) {
-        List<Mv> mvs = mvMapper.selectList(queryWrapper);
-        return mvs;
+        return mvMapper.selectList(queryWrapper);
     }
 
     /**

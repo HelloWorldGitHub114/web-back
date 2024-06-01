@@ -30,7 +30,7 @@ public class JwtUtil {
         Algorithm algorithm = Algorithm.HMAC256(secret);    //使用密钥进行哈希
         // 附带username信息的token
         return JWT.create()
-                .withClaim("username", user.getUsername())
+                .withClaim("userId", user.getId())
                 .withArrayClaim("roles", user.getRoles().toArray(new String[0]))
                 .withArrayClaim("permissions",user.getPermissions().toArray(new String[0]))
                 .withExpiresAt(date)  //过期时间
@@ -76,7 +76,7 @@ public class JwtUtil {
         JwtUser user = new JwtUser();
         DecodedJWT jwt = JWT.decode(token);
 
-        user.setUsername(jwt.getClaim("username").asString());
+        user.setId(jwt.getClaim("userId").asInt());
         user.setRoles(jwt.getClaim("roles").asList(String.class));
         user.setPermissions(jwt.getClaim("permissions").asList(String.class));
         //r-p映射在运行时去取
