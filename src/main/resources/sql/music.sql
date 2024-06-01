@@ -236,10 +236,11 @@ CREATE TABLE `mv` (
                              `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
                              `cover` varchar(255) DEFAULT NULL COMMENT '封面url',
                              `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '名字',
-                             `_desc` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
+                             `introduction` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '描述',
                              `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'mv的url',
                              `artist_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '歌手名字',
                              `publish_time` datetime DEFAULT NULL COMMENT '发行时间',
+                             `play_count` int unsigned DEFAULT '0' COMMENT '点赞数',
                              `create_time` datetime DEFAULT NULL COMMENT '创建时间',
                              `update_time` datetime DEFAULT NULL COMMENT '更新时间',
                              PRIMARY KEY (`id`) USING BTREE
@@ -256,7 +257,7 @@ CREATE TABLE `mv` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Insert test data into mv table
-INSERT INTO `mv` (`cover`, `name`, `_desc`, `url`, `artist_name`, `publish_time`, `create_time`, `update_time`) VALUES
+INSERT INTO `mv` (`cover`, `name`, `introduction`, `url`, `artist_name`, `publish_time`, `create_time`, `update_time`) VALUES
 ('http://dummyimage.com/100x100', '流沙', '这是流沙的MV', 'http://dummyimage.com/200x200', 'D.T', '2012-12-31 00:00:00', NOW(), NOW()),
 ('http://dummyimage.com/101x101', '沙漠骆驼', '这是沙漠骆驼的MV', 'http://dummyimage.com/201x201', '展展与罗罗', '2018-06-01 00:00:00', NOW(), NOW()),
 ('http://dummyimage.com/102x102', '小幸运', '这是小幸运的MV', 'http://dummyimage.com/202x202', '田馥甄', '2015-08-11 00:00:00', NOW(), NOW()),

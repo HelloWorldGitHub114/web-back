@@ -121,4 +121,19 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         }
         return comments;
     }
+
+    @Override
+    public int countOfCommentOfSongId(int songId){
+        return commentMapper.selectCount(new QueryWrapper<Comment>().eq("song_id", songId));
+    }
+
+    @Override
+    public int countOfCommentOfSongListId(int songListId){
+        return commentMapper.selectCount(new QueryWrapper<Comment>().eq("song_list_id", songListId));
+    }
+
+    @Override
+    public int countOfCommentOfMvId(int mvId){
+        return commentMapper.selectCount(new QueryWrapper<Comment>().eq("mv_id", mvId));
+    }
 }

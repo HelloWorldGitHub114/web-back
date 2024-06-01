@@ -101,6 +101,36 @@ public class CommentController {
     }
 
     /**
+     * 指定歌曲id的评论数
+     */
+    @ApiOperation("指定歌曲id的评论数")
+    @GetMapping("count-songId/{songId}")
+    public Result countOfCommentOfSongId(@PathVariable int songId) {
+        int count = commentService.countOfCommentOfSongId(songId);
+        return Result.ok(count);
+    }
+
+    /**
+     * 指定歌单id的评论数
+     */
+    @ApiOperation("指定歌单id的评论数")
+    @GetMapping("count-songListId/{songListId}")
+    public Result countOfCommentOfSongListId(@PathVariable int songListId) {
+        int count = commentService.countOfCommentOfSongListId(songListId);
+        return Result.ok(count);
+    }
+
+    /**
+     * 指定mv id的评论数
+     */
+    @ApiOperation("指定mv id的评论数")
+    @GetMapping("count-mvId/{mvId}")
+    public Result countOfCommentOfMvId(@PathVariable int mvId) {
+        int count = commentService.countOfCommentOfMvId(mvId);
+        return Result.ok(count);
+    }
+
+    /**
      * 通过id更新评论
      */
     @ApiOperation("通过id更新评论")

@@ -51,4 +51,10 @@ public interface ICommentService extends IService<Comment> {
      * 分页查询指定mv id下的评论
      */
     List<Comment> commentOfMvId(Integer mvId, int pageNo, int pageSize);
+
+    int countOfCommentOfSongId(int songId);
+
+    int countOfCommentOfSongListId(int songListId);
+
+    int countOfCommentOfMvId(int mvId);
 }

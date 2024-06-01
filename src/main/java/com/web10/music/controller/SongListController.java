@@ -5,19 +5,17 @@ import com.github.pagehelper.PageInfo;
 import com.web10.music.commons.result.Result;
 import com.web10.music.entity.SongList;
 import com.web10.music.entity.User;
-import com.web10.music.service.IListSongService;
 import com.web10.music.service.ISongListService;
-import com.web10.music.service.ISongService;
 import com.web10.music.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,16 +29,10 @@ import java.util.Random;
 @RequestMapping("/songList")
 @Api(tags = "歌单管理控制类")
 public class SongListController {
-    @Autowired
+    @Resource
     private ISongListService songListService;
 
-    @Autowired
-    private IListSongService listSongService;
-
-    @Autowired
-    private ISongService songService;
-
-    @Autowired
+    @Resource
     private IUserService userService;
 
     @Configuration
