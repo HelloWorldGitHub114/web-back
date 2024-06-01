@@ -79,8 +79,7 @@ public class SongListServiceImpl extends ServiceImpl<SongListMapper, SongList> i
     @Override
     public SongList findById(int id) {
         // 在list_song表中查询所有对应歌单的所有歌曲
-        SongList songList = songListMapper.selectById(id);
-        return songList;
+        return songListMapper.selectById(id);
     }
 
 
@@ -144,4 +143,5 @@ public class SongListServiceImpl extends ServiceImpl<SongListMapper, SongList> i
     public int songListCount() {
         return songListMapper.selectCount(null);
     }
+
 }

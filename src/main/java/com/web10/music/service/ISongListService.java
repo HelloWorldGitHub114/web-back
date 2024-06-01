@@ -70,4 +70,5 @@ public interface ISongListService extends IService<SongList> {
      * 获得歌单的数量
      */
     int songListCount();
+
 }
