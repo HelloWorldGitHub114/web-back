@@ -1,6 +1,8 @@
 package com.web10.music.service;
 
+import com.github.pagehelper.PageInfo;
 import com.web10.music.entity.Mv;
+import com.web10.music.entity.SongList;
 
 import java.util.List;
 
@@ -39,4 +41,9 @@ public interface IMvService {
      * 更新mv信息
      */
     void updateMv(Mv mv);
+
+    /**
+     * 根据title模糊搜索mv
+     */
+    PageInfo<Mv> findMvListByTitle(String title, Integer pageNo, Integer pageSize);
 }

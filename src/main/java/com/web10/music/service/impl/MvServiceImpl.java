@@ -3,8 +3,11 @@ package com.web10.music.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.web10.music.entity.Comment;
 import com.web10.music.entity.Mv;
+import com.web10.music.entity.SongList;
 import com.web10.music.entity.User;
 import com.web10.music.mapper.CommentMapper;
 import com.web10.music.mapper.MvMapper;
@@ -103,5 +106,18 @@ public class MvServiceImpl extends ServiceImpl<MvMapper, Mv> implements IMvServi
      */
     public void updateMv(Mv mv) {
         mvMapper.updateById(mv);
+    }
+
+    /**
+     * 根据title模糊搜索mv
+     */
+    public PageInfo<Mv> findMvListByTitle(String title, Integer pageNo, Integer pageSize) {
+        // 设置分页查询参数
+        PageHelper.startPage(pageNo, pageSize);
+        QueryWrapper<Mv> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", title);
+        List<Mv> mvs = mvMapper.selectList(queryWrapper);
+        PageInfo<Mv> pageInfo = new PageInfo(mvs);
+        return pageInfo;
     }
 }
