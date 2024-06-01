@@ -4,13 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.web10.music.commons.result.Result;
 import com.web10.music.entity.Mv;
+import com.web10.music.entity.SongList;
 import com.web10.music.service.IMvService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -109,5 +107,16 @@ public class MvController {
         PageInfo<Mv> pageInfo = new PageInfo<>(mvs);
 
         return Result.ok(pageInfo);
+    }
+
+    /**
+     * 根据title模糊搜索
+     */
+    @ApiOperation("根据title模糊搜索")
+    @GetMapping("title/detail/{title}/{pageNo}/{pageSize}")
+    public Result findMvsByTitie(@PathVariable String title, @PathVariable Integer pageNo, @PathVariable Integer pageSize) {
+        PageInfo<Mv> pageInfo = mvService.findMvListByTitle(title, pageNo, pageSize);
+        List<Mv> mvs = pageInfo.getList();
+        return Result.ok(mvs);
     }
 }
