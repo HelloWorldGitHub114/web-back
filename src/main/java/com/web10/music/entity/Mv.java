@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -20,7 +21,9 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "mv", description = "mv表")
-public class Mv {
+public class Mv implements Serializable {
+  //序列化版本号
+  private static final long serialVersionUID = 1L;
 
   @ApiModelProperty(value = "主键")
   @TableId(value = "id", type = IdType.AUTO)
