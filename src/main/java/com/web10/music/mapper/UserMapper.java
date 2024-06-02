@@ -1,9 +1,11 @@
 package com.web10.music.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.web10.music.config.MybatisRedisCache;
 import com.web10.music.entity.Permission;
 import com.web10.music.entity.Role;
 import com.web10.music.entity.User;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
  * 用户表 Mapper 接口
  */
 @Mapper
+@CacheNamespace(implementation= MybatisRedisCache.class,eviction= MybatisRedisCache.class)
 public interface UserMapper extends BaseMapper<User> {
 
     User findByUserName(String username);
