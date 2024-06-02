@@ -51,4 +51,6 @@ public interface IUserService extends IService<User> {
      * 根据id查询用户
      */
     User findUserById(int id);
+
+    boolean checkUsername(String username);
 }

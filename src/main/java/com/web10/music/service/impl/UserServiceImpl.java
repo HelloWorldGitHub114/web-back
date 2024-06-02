@@ -133,6 +133,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Transactional(rollbackFor = Exception.class)
     public boolean updateUser(User user) {
         try {
+            if(user.getId() == null) {
+                return false;
+            } else if (user.getUsername() != null && checkUsername(user.getUsername())) {
+                return false;
+            }
             User userDB = userMapper.findUserById(user.getId());
             if(user.getPassword() != null) {
                 Md5Hash md5Hash = new Md5Hash(user.getPassword(), userDB.getSalt(), 1024);
@@ -154,6 +159,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Transactional(rollbackFor = Exception.class)
     public boolean updateUserAdmin(User user) {
         try {
+            if(user.getId() == null) {
+                return false;
+            } else if (user.getUsername() != null && checkUsername(user.getUsername())) {
+                return false;
+            }
             User userDB = userMapper.findUserById(user.getId());
             if(user.getPassword() != null) {
                 Md5Hash md5Hash = new Md5Hash(user.getPassword(), userDB.getSalt(), 1024);
@@ -213,6 +223,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             user.setPermissions(new ArrayList<>(permissions));
         }
         return user;
+    }
+
+    @Override
+    public boolean checkUsername(String username){
+        return userMapper.selectCount(new QueryWrapper<User>().select("username").eq("username",username)) > 0;
     }
 
 }

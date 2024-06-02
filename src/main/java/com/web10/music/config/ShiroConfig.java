@@ -47,6 +47,7 @@ public class ShiroConfig {
         //开放登陆和注册接口
         map.put("/user/login", "anon");
         map.put("/user/register", "anon");
+        map.put("/user/check/*", "anon");
 
         // 放行swagger
         map.put("/swagger/**", "anon");

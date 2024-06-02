@@ -150,5 +150,12 @@ public class UserController {
         User user = userService.findUserById(id);
         return Result.ok(user);
     }
+
+    @ApiOperation("判断用户名是否存在")
+    @GetMapping("/check/{username}")
+    public Result checkUsername(@PathVariable String username) {
+        boolean existUsername = userService.checkUsername(username);
+        return Result.ok(existUsername);
+    }
 }
 
