@@ -1,16 +1,25 @@
 package com.web10.music.config;
 
+import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.github.pagehelper.PageHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Properties;
 
 /**
  *  PageHelper配置类
  **/
+@EnableTransactionManagement//管理事务
 @Configuration
-public class PageHelperConfig {
+public class MyBatisPlusConfig {
+    //注册乐观锁插件
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor(){
+        return new OptimisticLockerInterceptor();
+    }
+
     @Bean
     public PageHelper pageHelper() {
         PageHelper pageHelper = new PageHelper();

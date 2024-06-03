@@ -7,9 +7,9 @@ import com.github.pagehelper.PageInfo;
 import com.web10.music.entity.Singer;
 import com.web10.music.mapper.SingerMapper;
 import com.web10.music.service.ISingerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Service
 public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> implements ISingerService {
-    @Autowired
+    @Resource
     private SingerMapper singerMapper;
 
 

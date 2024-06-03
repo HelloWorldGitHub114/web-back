@@ -4,10 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.Cache;
 import org.springframework.data.redis.connection.RedisServerCommands;
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.util.CollectionUtils;
+import org.springframework.util.DigestUtils;
 
-import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -18,27 +16,32 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class MybatisRedisCache implements Cache {
 
 
+    /**
+     * 注意，这里无法通过@Autowired等注解的方式注入bean,只能手动获取
+     */
+    private RedisUtil redisUtil;
+
+    /**
+     * 手动获取bean
+     */
+    private void getRedisUtil() {
+        redisUtil = (RedisUtil) ApplicationContextUtil.getBean("redisUtil");
+    }
+
+
     // 读写锁
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock(true);
 
-    private RedisTemplate redisTemplate;
 
-    private RedisTemplate getRedisTemplate(){
-        //通过ApplicationContextHolder工具类获取RedisTemplate
-        if (redisTemplate == null) {
-            redisTemplate = (RedisTemplate) ApplicationContextHolder.getBeanByName("redisTemplate");
-        }
-        return redisTemplate;
-    }
+    private String id;
 
-    private final String id;
-
-    public MybatisRedisCache(String id) {
+    public MybatisRedisCache(final String id) {
         if (id == null) {
             throw new IllegalArgumentException("Cache instances require an ID");
         }
         this.id = id;
     }
+
 
     @Override
     public String getId() {
@@ -47,42 +50,86 @@ public class MybatisRedisCache implements Cache {
 
     @Override
     public void putObject(Object key, Object value) {
-        //使用redis的Hash类型进行存储
-        getRedisTemplate().opsForHash().put(id,key.toString(),value);
+        log.info("存入缓存");
+
+        if (redisUtil == null) {
+            getRedisUtil();//获取bean
+        }
+
+        try {
+            //将key加密后存入
+            redisUtil.hset(this.id.toString(),this.MD5Encrypt(key),value);
+        } catch (Exception e) {
+            log.error("存入缓存失败！");
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
     public Object getObject(Object key) {
-        try {
-            //根据key从redis中获取数据
-            return getRedisTemplate().opsForHash().get(id,key.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("缓存出错 ");
+        log.info("获取缓存");
+
+        if (redisUtil == null) {
+            getRedisUtil();//获取bean
         }
+
+        try {
+            if (key != null) {
+                return redisUtil.hget(this.id.toString(),this.MD5Encrypt(key));
+            }
+        } catch (Exception e) {
+            log.error("获取缓存失败！");
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public Object removeObject(Object key) {
-        if (key != null) {
-            getRedisTemplate().delete(key.toString());
+        log.info("删除缓存");
+
+        if (redisUtil == null) {
+            getRedisUtil();//获取bean
         }
+
+
+        try {
+            if (key != null) {
+                redisUtil.del(this.MD5Encrypt(key));
+            }
+        } catch (Exception e) {
+            log.error("删除缓存失败！");
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public void clear() {
-        log.debug("清空缓存");
-        Set<String> keys = getRedisTemplate().keys("*:" + this.id + "*");
-        if (!CollectionUtils.isEmpty(keys)) {
-            getRedisTemplate().delete(keys);
+        log.info("清空缓存");
+        if (redisUtil == null) {
+            getRedisUtil();//获取bean
         }
+
+        try {
+            redisUtil.del(this.id.toString());
+        } catch (Exception e) {
+            log.error("清空缓存失败！");
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public int getSize() {
-        Long size = (Long) getRedisTemplate().execute((RedisCallback<Long>) RedisServerCommands::dbSize);
+        if (redisUtil == null) {
+            getRedisUtil();//获取bean
+        }
+        Long size = (Long)redisUtil.execute((RedisCallback<Long>) RedisServerCommands::dbSize);
         return size.intValue();
     }
 
@@ -90,4 +137,13 @@ public class MybatisRedisCache implements Cache {
     public ReadWriteLock getReadWriteLock() {
         return this.readWriteLock;
     }
+
+    /**
+     * MD5加密存储key,以节约内存
+     */
+    private String MD5Encrypt(Object key){
+        String s = DigestUtils.md5DigestAsHex(key.toString().getBytes());
+        return s;
+    }
+
 }

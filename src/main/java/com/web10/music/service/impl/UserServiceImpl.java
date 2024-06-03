@@ -131,6 +131,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    
     public boolean updateUser(User user) {
         try {
             if(user.getId() == null) {
@@ -157,6 +158,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
+    
     public boolean updateUserAdmin(User user) {
         try {
             if(user.getId() == null) {
