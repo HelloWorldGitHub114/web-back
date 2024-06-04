@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.web10.music.commons.result.Result;
 import com.web10.music.entity.Mv;
-import com.web10.music.entity.SongList;
 import com.web10.music.service.IMvService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -118,5 +117,29 @@ public class MvController {
         PageInfo<Mv> pageInfo = mvService.findMvListByTitle(title, pageNo, pageSize);
         List<Mv> mvs = pageInfo.getList();
         return Result.ok(mvs);
+    }
+
+    @PostMapping("/add")
+    public Result addMv(@RequestBody Mv mv){
+        if(mvService.addMv(mv)){
+            return Result.ok("添加成功");
+        }else
+            return Result.ok("添加失败");
+    }
+
+    @PostMapping("/update")
+    public Result updateMv(@RequestBody Mv mv){
+        if(mvService.updateMv(mv)){
+            return Result.ok("更新成功");
+        }else
+            return Result.ok("更新失败");
+    }
+
+    @PostMapping("/update")
+    public Result deleteMv(@RequestBody Mv mv){
+        if(mvService.deleteMv(mv)){
+            return Result.ok("更新成功");
+        }else
+            return Result.ok("更新失败");
     }
 }

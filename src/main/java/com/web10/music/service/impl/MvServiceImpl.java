@@ -98,8 +98,8 @@ public class MvServiceImpl extends ServiceImpl<MvMapper, Mv> implements IMvServi
     /**
      * 更新mv信息
      */
-    public void updateMv(Mv mv) {
-        mvMapper.updateById(mv);
+    public boolean updateMv(Mv mv) {
+        return mvMapper.updateById(mv) > 0;
     }
 
     /**
@@ -113,5 +113,21 @@ public class MvServiceImpl extends ServiceImpl<MvMapper, Mv> implements IMvServi
         List<Mv> mvs = mvMapper.selectList(queryWrapper);
         PageInfo<Mv> pageInfo = new PageInfo(mvs);
         return pageInfo;
+    }
+
+    /**
+     * 增加mv
+     */
+    @Override
+    public boolean addMv(Mv mv){
+        return mvMapper.insert(mv) > 0;
+    }
+
+    /**
+     * 删除mv
+     */
+    @Override
+    public boolean deleteMv(Mv mv){
+        return mvMapper.deleteById(mv.getId()) > 0;
     }
 }
