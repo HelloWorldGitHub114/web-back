@@ -9,11 +9,7 @@ import com.web10.music.service.ISongListService;
 import com.web10.music.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -34,14 +30,6 @@ public class SongListController {
 
     @Resource
     private IUserService userService;
-
-    @Configuration
-    public class MyPicConfig implements WebMvcConfigurer {
-        @Override
-        public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/songListPic/**").addResourceLocations("file:/Users/hongweiyin/Documents/github-workspace/music-website/music-server/img/songListPic/");
-        }
-    }
 
     /**
      * 添加歌单
@@ -78,15 +66,6 @@ public class SongListController {
         } else {
             return Result.ok("更新失败");
         }
-    }
-
-    /**
-     * 更新歌单封面
-     */
-    @ApiOperation(value = "更新歌单封面")
-    @PostMapping("/img/update")
-    public Result updateSongListPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
-        return null;
     }
 
     /**

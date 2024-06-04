@@ -9,13 +9,8 @@ import com.web10.music.service.ISingerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,22 +29,12 @@ public class SingerController {
     @Autowired
     private ISingerService singerService;
 
-    @Configuration
-    public class MyPicConfig implements WebMvcConfigurer {
-        @Override
-        public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:D:\\IDE_Project\\JavaLearning\\music-website\\music-server\\img\\singerPic");
-        }
-    }
-
-
     @ApiOperation("根据歌手id获得歌手信息")
     @GetMapping("{id}")
     public Result findBySingerId(@PathVariable String id) {
         Singer singer = singerService.findBySingerId(id);
         return Result.ok(singer);
     }
-
 
 
     @ApiOperation(value = "添加歌手")
