@@ -33,7 +33,7 @@ public class CorsFilter extends PathMatchingFilter {
 
     private void configHeaders(HttpServletRequest request, HttpServletResponse response){
         //跨域的header设置
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
         response.setHeader("Access-Control-Allow-Methods", request.getMethod());
 
         response.setHeader("Access-Control-Allow-Credentials", "false");
